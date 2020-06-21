@@ -5,23 +5,28 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import javax.annotation.sql.DataSourceDefinition;
 import javax.persistence.Entity;
 
 @Entity
-@Data
+@Table(name = "article")
 public class Article {
 
     @Id
-    @GeneratedValue
     private Long id;
 
+    @Column(name = "title")
     private String title;
+    @Column(name = "content")
     private String content;
+
+    public Article() {
+        this.id = 1L;
+        this.title = "";
+        this.content = "";
+    }
 
     public Article(Long id, String title, String content) {
         this.id = id;

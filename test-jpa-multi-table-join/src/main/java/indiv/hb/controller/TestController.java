@@ -1,17 +1,22 @@
 package indiv.hb.controller;
 
 import indiv.hb.model.Article;
+import indiv.hb.service.ArticleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import java.io.IOException;
 
 @RestController
 @RequestMapping("/test")
 public class TestController {
+
+    @Resource
+    ArticleServiceImpl articleService;
 
     /**
      * Save info from request to sqlite
@@ -21,6 +26,7 @@ public class TestController {
     public ResponseEntity<Article> getSpaceReservations(@PathVariable Long articleId, @PathVariable String title, @PathVariable String content){
 
         Article article = new Article(articleId, title, content);
-        return new ResponseEntity<Article>(article, HttpStatus.OK);
+        Article responseArticle = articleService.updateArticle(article);
+        return new ResponseEntity<Article>(responseArticle, HttpStatus.OK);
     }
 }
